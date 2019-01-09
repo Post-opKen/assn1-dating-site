@@ -1,0 +1,12 @@
+{
+  "name": "edausgre/328/assn1-dating-site",
+  "authors": [
+    {
+      "name": "Ean Daus",
+      "email": "eandaus123@gmail.com"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
