@@ -34,9 +34,15 @@ $f3->route('GET|POST /personal', function () {
     $template = new Template();
     echo $template->render('views/personal.html');
 });
+
 $f3->route('GET|POST /profile', function () {
     $template = new Template();
     echo $template->render('views/profile.html');
+});
+
+$f3->route('GET|POST /interests', function () {
+    $template = new Template();
+    echo $template->render('views/interests.html');
 });
 
 //run fat free
