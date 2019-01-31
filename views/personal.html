@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="styles/styles.css" rel="stylesheet">
+    <title>Personal Information</title>
+</head>
+<body>
+<nav class="navbar bg-light border-bottom">
+    <div class="container">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/328/assn1-dating-site">My Dating Website</a>
+        </div>
+    </div>
+</nav>
+<div class="rounded container page-container">
+    <h1>Personal Information</h1>
+    <hr>
+    <form action="#" method="post">
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input class="form-control" type="text" name="first">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input class="form-control" type="text" name="last">
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input class="form-control" type="number" name="age">
+                </div>
+                <div class="form-group">
+                    <label class="d-block">Gender</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="male">
+                        <label class="form-check-label">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="female">
+                        <label class="form-check-label">Female</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input class="form-control" type="tel" name="phone">
+                </div>
+            </div>
+            <div class="col">
+                <div class="noticeBox rounded">
+                    <p><strong>Note:</strong> All information is protected by our <a>privacy policy</a>. Profile
+                        information can only be viewed by others with your permission.</p>
+                </div>
+                <button class="btn btn-primary btn-round m-2 float-right" type="submit">Next></button>
+            </div>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

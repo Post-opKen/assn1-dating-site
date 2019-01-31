@@ -6,3 +6,18 @@
     border-bottom: 2px solid lightgrey;
     padding: .5em;
 }
+.noticeBox{
+    background-color: lightgrey;
+    border: solid 1px darkgray;
+}
+/*all labels that do not have a class of form-check-label*/
+label:not(.form-check-label){
+    font-weight: bold;
+}
+
+.page-container{
+    border: solid 1px grey;
+    border-radius: 1em;
+    padding: 1em;
+    margin: 1em auto;
+}

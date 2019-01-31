@@ -18,10 +18,21 @@ $f3 = Base::instance();
 //fat free error reporting
 $f3->set('DEBUG', 3);
 
+//declare interest arrays
+$f3->set('indoorInterests', array('tv', 'movies', 'cooking', 'board games', 'puzzles', 'reading', 'playing cards', 'video games'));
+
+$f3->set('outdoorInterests', array('hiking', 'biking', 'swimming', 'collecting', 'walking', 'climbing'));
+
 //define a default route
-$f3->route('GET /', function(){
+$f3->route('GET /', function () {
     $view = new View;
     echo $view->render('views/home.html');
+});
+
+//form templates
+$f3->route('GET|POST /personal', function () {
+    $template = new Template();
+    echo $template->render('views/personal.html');
 });
 
 //run fat free
