@@ -21,3 +21,8 @@ label:not(.form-check-label){
     padding: 1em;
     margin: 1em auto;
 }
+
+.error{
+    font-weight: bold;
+    color: red;
+}
