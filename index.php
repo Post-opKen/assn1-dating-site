@@ -164,7 +164,7 @@ $f3->route('GET|POST /profile', function ($f3) {
         {
             //save everything to the session
             $_SESSION['email'] = $_POST['email'];
-            $_SESSION['state'] = $_POST['state'];
+            $_SESSION['state'] = $f3->get('states')[$_POST['state']];
             $_SESSION['bio'] = $_POST['bio'];
             $_SESSION['seeking'] = $_POST['seeking'];
 
@@ -176,7 +176,43 @@ $f3->route('GET|POST /profile', function ($f3) {
     echo $template->render('views/profile.html');
 });
 
-$f3->route('GET|POST /interests', function () {
+$f3->route('GET|POST /interests', function ($f3) {
+    //if form has been submitted, validate interests
+    if(!empty($_POST))
+    {
+        $isValid = true;
+
+        //check indoor values
+        if(isset($_POST['indoor']) and !validIndoor($f3->get('indoorInterests')))
+        {
+            $isValid = false;
+            $f3->set("errors['indoor']", "pls don't spoof my form :(");
+        }
+
+        //check outdoor values
+        if(isset($_POST['outdoor']) and !validOutdoor($f3->get('outdoorInterests')))
+        {
+            $isValid = false;
+            $f3->set("errors['outdoor']", "pls don't spoof my form :(");
+        }
+
+        //if all valid data
+        if($isValid)
+        {
+            //save to session
+            if(isset($_POST['indoor']))
+            {
+                $_SESSION['indoor'] = implode(' ', $_POST['indoor']);
+            }
+            if(isset($_POST['outdoor']))
+            {
+                $_SESSION['outdoor'] = implode(' ', $_POST['outdoor']);
+            }
+
+            //reroute to summary page
+            $f3->reroute('summary');
+        }
+    }
     $template = new Template();
     echo $template->render('views/interests.html');
 });

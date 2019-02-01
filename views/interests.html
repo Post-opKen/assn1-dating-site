@@ -18,6 +18,11 @@
 <div class="rounded container page-container">
     <h1>Interests</h1>
     <hr>
+    <check if="{{!empty(@errors)}}">
+        <repeat group="{{@errors}}" value="{{@msg}}">
+            <p class="error">{{@msg}}</p>
+        </repeat>
+    </check>
     <form action="#" method="post">
         <div class="row">
             <div class="col-12">
@@ -25,8 +30,16 @@
                     <label class="d-block">In-door Interests</label>
                     <repeat group="{{@indoorInterests}}" value="{{@interest}}">
                         <div class="form-check form-check-inline col-3">
-                            <input class="form-check-input" type="checkbox" name="indoor[]" value="{{@interest}}">
-                            <label class="form-check-label">{{@interest}}</label>
+                            <label class="form-check-label">
+                                <check if="{{in_array(@interest, @POST.indoor)}}">
+                                    <true>
+                                        <input class="form-check-input" type="checkbox" name="indoor[]" value="{{@interest}}" checked="checked">
+                                    </true>
+                                    <false>
+                                        <input class="form-check-input" type="checkbox" name="indoor[]" value="{{@interest}}">
+                                    </false>
+                                </check>{{@interest}}
+                            </label>
                         </div>
                     </repeat>
                 </div>
@@ -34,14 +47,22 @@
                     <label class="d-block">Out-door Interests</label>
                     <repeat group="{{@outdoorInterests}}" value="{{@interest}}">
                         <div class="form-check form-check-inline col-3">
-                            <input class="form-check-input" type="checkbox" name="outdoor[]" value="{{@interest}}">
-                            <label class="form-check-label">{{@interest}}</label>
+                            <label class="form-check-label">
+                                <check if="{{in_array(@interest, @POST.outdoor)}}">
+                                    <true>
+                                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="{{@interest}}" checked="checked">
+                                    </true>
+                                    <false>
+                                        <input class="form-check-input" type="checkbox" name="outdoor[]" value="{{@interest}}">
+                                    </false>
+                                </check>{{@interest}}
+                            </label>
                         </div>
                     </repeat>
                 </div>
             </div>
             <div class="col">
-                <button class="btn btn-primary btn-round m-2 float-right" type="submit">Next></button>
+                <button class="btn btn-primary btn-round m-2 float-right" name="submit" type="submit">Next></button>
             </div>
         </div>
     </form>
