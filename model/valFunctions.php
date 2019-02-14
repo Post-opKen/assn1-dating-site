@@ -1,4 +1,10 @@
 <?php
+/*
+Ean Daus
+2/1/19
+valFunctions.php
+include file with several functions for form validation
+*/
 function validName()
 {
     //check if both first and last contain only letters

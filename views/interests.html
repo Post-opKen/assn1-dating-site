@@ -31,7 +31,7 @@
                     <repeat group="{{@indoorInterests}}" value="{{@interest}}">
                         <div class="form-check form-check-inline col-3">
                             <label class="form-check-label">
-                                <check if="{{in_array(@interest, @POST.indoor)}}">
+                                <check if="{{!empty($_POST) and in_array(@interest, @POST.indoor)}}">
                                     <true>
                                         <input class="form-check-input" type="checkbox" name="indoor[]" value="{{@interest}}" checked="checked">
                                     </true>
@@ -48,7 +48,7 @@
                     <repeat group="{{@outdoorInterests}}" value="{{@interest}}">
                         <div class="form-check form-check-inline col-3">
                             <label class="form-check-label">
-                                <check if="{{in_array(@interest, @POST.outdoor)}}">
+                                <check if="{{!empty($_POST) and in_array(@interest, @POST.outdoor)}}">
                                     <true>
                                         <input class="form-check-input" type="checkbox" name="outdoor[]" value="{{@interest}}" checked="checked">
                                     </true>
