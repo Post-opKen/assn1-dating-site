@@ -20,35 +20,37 @@
         <div class="col-6">
             <table class="table table-bordered">
                 <tr>
-                    <td>Name: {{@SESSION.first}} {{@SESSION.last}}</td>
+                    <td>Name: {{@SESSION.member->getFirst()}} {{@SESSION.member->getLast()}}</td>
                 </tr>
                 <tr>
-                    <td>Gender: {{@SESSION.gender}}</td>
+                    <td>Gender: {{@SESSION.member->getGender()}}</td>
                 </tr>
                 <tr>
-                    <td>Age: {{@SESSION.age}}</td>
+                    <td>Age: {{@SESSION.member->getAge()}}</td>
                 </tr>
                 <tr>
-                    <td>Phone: {{@SESSION.phone}}</td>
+                    <td>Phone: {{@SESSION.member->getPhone()}}</td>
                 </tr>
                 <tr>
-                    <td>Email: {{@SESSION.email}}</td>
+                    <td>Email: {{@SESSION.member->getEmail()}}</td>
                 </tr>
                 <tr>
-                    <td>State: {{@SESSION.state}}</td>
+                    <td>State: {{@SESSION.member->getState()}}</td>
                 </tr>
                 <tr>
-                    <td>Seeking: {{@SESSION.seeking}}</td>
+                    <td>Seeking: {{@SESSION.member->getSeeking()}}</td>
                 </tr>
-                <tr>
-                    <td>Interests: {{@SESSION.indoor}} {{@SESSION.outdoor}}</td>
-                </tr>
+                <check if="get_class(@SESSION.member) == 'PremiumMember'">
+                    <tr>
+                        <td>Interests: {{implode(', ', @SESSION.member->getInDoorInterests())}}, {{implode(', ', @SESSION.member->getOutDoorInterests())}}</td>
+                    </tr>
+                </check>
             </table>
         </div>
         <div class="col">
             <img class="img-fluid rounded" src="images/egg.jpg" alt="The shape of an egg, the default profile picture">
             <h5 class="font-weight-normal">Biography</h5>
-            <p>{{@SESSION.bio}}</p>
+            <p>{{@SESSION.member->getBio()}}</p>
         </div>
     </div>
     <div class="w-100 d-flex">
