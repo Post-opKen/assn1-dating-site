@@ -10,14 +10,14 @@ represents a premium member of the dating site
  * Class PremiumMember
  * Represents a premium member of the dating site, with indoor and outdoor interests.
  */
-class PremiumMember extends member
+class PremiumMember extends Member
 {
-    private $_inDoorInterests;
-    private $_outDoorInterests;
+    private $_inDoorInterests = array();
+    private $_outDoorInterests = array();
 
     /**
      * Gets the premium member's indoor interests.
-     * @return string
+     * @return array
      */
     public function getInDoorInterests()
     {
@@ -26,7 +26,7 @@ class PremiumMember extends member
 
     /**
      * Sets the premium member's indoor interests.
-     * @param string $inDoorInterests
+     * @param array $inDoorInterests
      */
     public function setInDoorInterests($inDoorInterests)
     {
@@ -35,7 +35,7 @@ class PremiumMember extends member
 
     /**
      * Gets the premium member's outdoor interests.
-     * @return string
+     * @return array
      */
     public function getOutDoorInterests()
     {
@@ -44,7 +44,7 @@ class PremiumMember extends member
 
     /**
      * Sets the premium member's outdoor interests.
-     * @param string $outDoorInterests
+     * @param array $outDoorInterests
      */
     public function setOutDoorInterests($outDoorInterests)
     {
