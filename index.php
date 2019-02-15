@@ -5,7 +5,7 @@ Ean Daus
 index.php
 index page for dating site
 */
-session_start();
+
 //php error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -13,6 +13,8 @@ error_reporting(E_ALL);
 //require autoload
 require_once 'vendor/autoload.php';
 require_once 'model/valFunctions.php';
+
+session_start();
 
 //create an instance of the base class
 $f3 = Base::instance();
@@ -124,12 +126,15 @@ $f3->route('GET|POST /personal', function ($f3) {
         //if all data is valid
         if($isValid)
         {
-            //save everything to the session
-            $_SESSION['first'] = $_POST['first'];
-            $_SESSION['last'] = $_POST['last'];
-            $_SESSION['age'] = $_POST['age'];
-            $_SESSION['gender'] = $_POST['gender'];
-            $_SESSION['phone'] = $_POST['phone'];
+            //instantiate an member or premiumMember object
+            if(isset($_POST['premium'])){
+                $member = new PremiumMember($_POST['first'], $_POST['last'], $_POST['age'], $_POST['gender'], $_POST['phone']);
+            }else{
+                $member = new Member($_POST['first'], $_POST['last'], $_POST['age'], $_POST['gender'], $_POST['phone']);
+            }
+
+            //save object to session
+            $_SESSION['member'] = $member;
 
             //reroute to next page
             $f3->reroute('profile');
@@ -162,14 +167,18 @@ $f3->route('GET|POST /profile', function ($f3) {
         //if all data is valid
         if($isValid)
         {
-            //save everything to the session
-            $_SESSION['email'] = $_POST['email'];
-            $_SESSION['state'] = $f3->get('states')[$_POST['state']];
-            $_SESSION['bio'] = $_POST['bio'];
-            $_SESSION['seeking'] = $_POST['seeking'];
+            //add form data to member object
+            $_SESSION['member']->setEmail($_POST['email']);
+            $_SESSION['member']->setState($f3->get('states')[$_POST['state']]);
+            $_SESSION['member']->setBio($_POST['bio']);
+            $_SESSION['member']->setSeeking($_POST['seeking']);
 
             //reroute to next page
-            $f3->reroute('interests');
+            if(get_class($_SESSION['member']) == 'PremiumMember') {
+                $f3->reroute('interests');
+            }else{
+                $f3->reroute('summary');
+            }
         }
     }
     $template = new Template();
@@ -202,11 +211,11 @@ $f3->route('GET|POST /interests', function ($f3) {
             //save to session
             if(isset($_POST['indoor']))
             {
-                $_SESSION['indoor'] = implode(' ', $_POST['indoor']);
+                $_SESSION['member']->setInDoorInterests($_POST['indoor']);
             }
             if(isset($_POST['outdoor']))
             {
-                $_SESSION['outdoor'] = implode(' ', $_POST['outdoor']);
+                $_SESSION['member']->setOutDoorInterests($_POST['outdoor']);
             }
 
             //reroute to summary page
