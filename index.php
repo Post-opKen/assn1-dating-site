@@ -226,7 +226,10 @@ $f3->route('GET|POST /summary', function () {
     echo $template->render('views/summary.html');
 });
 
-$f3->route('GET /admin', function(){
+$f3->route('GET /admin', function($f3){
+    $db = new Database();
+    $f3->set('members', $db->getMembers());
+
     $template = new Template();
     echo $template->render('views/admin.html');
 });

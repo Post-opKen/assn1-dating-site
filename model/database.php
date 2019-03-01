@@ -87,7 +87,7 @@ class Database
         global $dbh;
 
         //1. define the query
-        $sql = "SELECT * FROM student ORDER BY last, first";
+        $sql = "SELECT * FROM Members ORDER BY last, first";
 
         //2. prepare the statement
         $statement = $dbh->prepare($sql);

@@ -8,10 +8,15 @@ admin page view for dating site assignment
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link href="styles/styles.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.18/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.18/datatables.min.js"></script>
     <title>Admin</title>
 </head>
 <body>
@@ -25,7 +30,50 @@ admin page view for dating site assignment
 </nav>
 <div class="rounded container page-container">
     <h1>Membership</h1>
+
     <!--Datatable-->
+    <table id="table" class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>State</th>
+            <th>Gender</th>
+            <th>Seeking</th>
+            <th>Premium</th>
+            <th>Interests</th>
+        </tr>
+        </thead>
+        <tbody>
+        <repeat group="{{@members}}" value="{{@member}}">
+            <tr>
+                <td>{{@member.member_id}}</td>
+                <td>{{@member.first}} {{@member.last}}</td>
+                <td>{{@member.age}}</td>
+                <td>{{@member.phone}}</td>
+                <td>{{@member.email}}</td>
+                <td>{{@member.state}}</td>
+                <td>{{@member.gender}}</td>
+                <td>{{@member.seeking}}</td>
+                <td>
+                    <check if="{{@member.premium == 1}}">
+                        <true>
+                            <input type="checkbox" class="form-check-input" disabled checked="checked">
+                        </true>
+                        <false>
+                            <input type="checkbox" class="form-check-input" disabled>
+                        </false>
+                    </check>
+                </td>
+                <td>{{@member.interests}}</td>
+            </tr>
+        </repeat>
+        </tbody>
+    </table>
+    <script src="scripts/table.js"></script>
 </div>
 </body>
 </html>
