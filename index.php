@@ -233,5 +233,13 @@ $f3->route('GET /admin', function($f3){
     $template = new Template();
     echo $template->render('views/admin.html');
 });
+
+$f3->route('GET /members/@id', function($f3, $params){
+    $db = new Database();
+    $f3->set('member', $db->getMember($params['id']));
+
+    $template = new Template();
+    echo $template->render('views/member.html');
+});
 //run fat free
 $f3->run();

@@ -106,13 +106,13 @@ class Database
         global $dbh;
 
         //1. define the query
-        $sql = "SELECT * FROM student where sid = :sid";
+        $sql = "SELECT * FROM Members where member_id = :id";
 
         //2. prepare the statement
         $statement = $dbh->prepare($sql);
 
         //bind params
-        $statement->bindParam(':sid', $id, PDO::PARAM_STR);
+        $statement->bindParam(':id', $id, PDO::PARAM_STR);
 
         //4. execute the statement
         $statement->execute();
@@ -120,8 +120,6 @@ class Database
         //5. return the result
         $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-        $student = new Student($id, $result['last'], $result['first'], $result['birthdate'], $result['gpa'], $result['advisor']);
-
-        return $student;
+        return $result;
     }
 }

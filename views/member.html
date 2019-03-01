@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="styles/styles.css" rel="stylesheet">
+    <title>Member Profile</title>
+</head>
+<body>
+<nav class="navbar bg-light border-bottom">
+    <div class="container">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/328/assn1-dating-site">My Dating Website</a>
+            <a class="nav-item nav-link" href="admin">Admin</a>
+        </div>
+    </div>
+</nav>
+<div class="rounded container page-container">
+    <div class="row">
+        <div class="col-6">
+            <table class="table table-bordered">
+                <tr>
+                    <td>Name: {{@member.first}} {{@member.last}}</td>
+                </tr>
+                <tr>
+                    <td>Gender: {{@member.gender}}</td>
+                </tr>
+                <tr>
+                    <td>Age: {{@member.age}}</td>
+                </tr>
+                <tr>
+                    <td>Phone: {{@member.phone}}</td>
+                </tr>
+                <tr>
+                    <td>Email: {{@member.email}}</td>
+                </tr>
+                <tr>
+                    <td>State: {{@member.state}}</td>
+                </tr>
+                <tr>
+                    <td>Seeking: {{@member.seeking}}</td>
+                </tr>
+                <check if="{{@member.premium == 1}}">
+                    <tr>
+                        <td>Interests: {{@member.interests}}</td>
+                    </tr>
+                </check>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

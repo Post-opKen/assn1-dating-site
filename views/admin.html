@@ -51,7 +51,7 @@ admin page view for dating site assignment
         <repeat group="{{@members}}" value="{{@member}}">
             <tr>
                 <td>{{@member.member_id}}</td>
-                <td>{{@member.first}} {{@member.last}}</td>
+                <td><a href="members/{{@member.member_id}}}">{{@member.first}} {{@member.last}}</a></td>
                 <td>{{@member.age}}</td>
                 <td>{{@member.phone}}</td>
                 <td>{{@member.email}}</td>
