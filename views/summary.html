@@ -12,6 +12,7 @@
     <div class="container">
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="/328/assn1-dating-site">My Dating Website</a>
+            <a class="nav-item nav-link" href="admin">Admin</a>
         </div>
     </div>
 </nav>
@@ -42,7 +43,7 @@
                 </tr>
                 <check if="get_class(@SESSION.member) == 'PremiumMember'">
                     <tr>
-                        <td>Interests: {{implode(', ', @SESSION.member->getInDoorInterests())}}, {{implode(', ', @SESSION.member->getOutDoorInterests())}}</td>
+                        <td>Interests: {{implode(', ', array_merge(@SESSION.member->getInDoorInterests(), @SESSION.member->getOutDoorInterests()))}}</td>
                     </tr>
                 </check>
             </table>
