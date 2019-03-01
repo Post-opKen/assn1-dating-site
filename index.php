@@ -22,6 +22,9 @@ $f3 = Base::instance();
 //fat free error reporting
 $f3->set('DEBUG', 3);
 
+$db = new Database();
+$dbh = $db->connect();
+
 //declare interest arrays
 $f3->set('indoorInterests', array('tv', 'movies', 'cooking', 'board games', 'puzzles', 'reading', 'playing cards', 'video games'));
 
@@ -91,45 +94,39 @@ $f3->route('GET /', function () {
 //form templates
 $f3->route('GET|POST /personal', function ($f3) {
     //if form has been submitted, validate data
-    if(!empty($_POST))
-    {
+    if (!empty($_POST)) {
         $isValid = true;
 
         //check first/last name
-        if(!validName())
-        {
+        if (!validName()) {
             $isValid = false;
             $f3->set("errors['name']", 'First and last name must contain only letters');
         }
 
         //check age
-        if(!validAge())
-        {
+        if (!validAge()) {
             $isValid = false;
             $f3->set("errors['age']", 'Age must contain only numbers and must be at least 18');
         }
 
         //check phone num
-        if(!validPhone())
-        {
+        if (!validPhone()) {
             $isValid = false;
             $f3->set("errors['phone']", 'Phone number must contain only letters and have exactly 10 characters');
         }
 
         //check gender
-        if(isset($_POST['gender']) and $_POST['gender'] != 'male' and $_POST['gender'] != 'female')
-        {
+        if (isset($_POST['gender']) and $_POST['gender'] != 'male' and $_POST['gender'] != 'female') {
             $isValid = false;
             $f3->set("errors['gender']", "pls don't spoof my form :(");
         }
 
         //if all data is valid
-        if($isValid)
-        {
+        if ($isValid) {
             //instantiate an member or premiumMember object
-            if(isset($_POST['premium'])){
+            if (isset($_POST['premium'])) {
                 $member = new PremiumMember($_POST['first'], $_POST['last'], $_POST['age'], $_POST['gender'], $_POST['phone']);
-            }else{
+            } else {
                 $member = new Member($_POST['first'], $_POST['last'], $_POST['age'], $_POST['gender'], $_POST['phone']);
             }
 
@@ -146,27 +143,23 @@ $f3->route('GET|POST /personal', function ($f3) {
 
 $f3->route('GET|POST /profile', function ($f3) {
     //if form has been submitted, validate data
-    if(!empty($_POST))
-    {
+    if (!empty($_POST)) {
         $isValid = true;
 
         //check email
-        if(!validEmail())
-        {
+        if (!validEmail()) {
             $isValid = false;
             $f3->set("errors['email']", 'Email is invalid');
         }
 
         //check seeking
-        if(isset($_POST['seeking']) and $_POST['seeking'] != 'male' and $_POST['seeking'] != 'female')
-        {
+        if (isset($_POST['seeking']) and $_POST['seeking'] != 'male' and $_POST['seeking'] != 'female') {
             $isValid = false;
             $f3->set("errors['seeking']", "pls don't spoof my form :(");
         }
 
         //if all data is valid
-        if($isValid)
-        {
+        if ($isValid) {
             //add form data to member object
             $_SESSION['member']->setEmail($_POST['email']);
             $_SESSION['member']->setState($f3->get('states')[$_POST['state']]);
@@ -174,9 +167,13 @@ $f3->route('GET|POST /profile', function ($f3) {
             $_SESSION['member']->setSeeking($_POST['seeking']);
 
             //reroute to next page
-            if(get_class($_SESSION['member']) == 'PremiumMember') {
+            if (get_class($_SESSION['member']) == 'PremiumMember') {
                 $f3->reroute('interests');
-            }else{
+            } else {
+                //add member to DB
+                $db = new Database();
+                $db->insertMember($_SESSION['member']);
+                //reroute
                 $f3->reroute('summary');
             }
         }
@@ -187,36 +184,34 @@ $f3->route('GET|POST /profile', function ($f3) {
 
 $f3->route('GET|POST /interests', function ($f3) {
     //if form has been submitted, validate interests
-    if(!empty($_POST))
-    {
+    if (!empty($_POST)) {
         $isValid = true;
 
         //check indoor values
-        if(isset($_POST['indoor']) and !validIndoor($f3->get('indoorInterests')))
-        {
+        if (isset($_POST['indoor']) and !validIndoor($f3->get('indoorInterests'))) {
             $isValid = false;
             $f3->set("errors['indoor']", "pls don't spoof my form :(");
         }
 
         //check outdoor values
-        if(isset($_POST['outdoor']) and !validOutdoor($f3->get('outdoorInterests')))
-        {
+        if (isset($_POST['outdoor']) and !validOutdoor($f3->get('outdoorInterests'))) {
             $isValid = false;
             $f3->set("errors['outdoor']", "pls don't spoof my form :(");
         }
 
         //if all valid data
-        if($isValid)
-        {
+        if ($isValid) {
             //save to session
-            if(isset($_POST['indoor']))
-            {
-                $_SESSION['member']->setInDoorInterests($_POST['indoor']);
+            if (isset($_POST['indoor'])) {
+                $_SESSION['member']->setIndoorInterests($_POST['indoor']);
             }
-            if(isset($_POST['outdoor']))
-            {
-                $_SESSION['member']->setOutDoorInterests($_POST['outdoor']);
+            if (isset($_POST['outdoor'])) {
+                $_SESSION['member']->setOutdoorInterests($_POST['outdoor']);
             }
+
+            //add member to DB
+            $db = new Database();
+            $db->insertMember($_SESSION['member']);
 
             //reroute to summary page
             $f3->reroute('summary');
@@ -231,5 +226,9 @@ $f3->route('GET|POST /summary', function () {
     echo $template->render('views/summary.html');
 });
 
+$f3->route('GET /admin', function(){
+    $template = new Template();
+    echo $template->render('views/admin.html');
+});
 //run fat free
 $f3->run();
