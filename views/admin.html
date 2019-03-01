@@ -24,7 +24,7 @@ admin page view for dating site assignment
     <div class="container">
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="/328/assn1-dating-site">My Dating Website</a>
-            <a class="nav-item nav-link" href="admin">Admin</a>
+            <a class="nav-item nav-link" href="/328/assn1-dating-site/admin">Admin</a>
         </div>
     </div>
 </nav>
@@ -59,14 +59,16 @@ admin page view for dating site assignment
                 <td>{{@member.gender}}</td>
                 <td>{{@member.seeking}}</td>
                 <td>
-                    <check if="{{@member.premium == 1}}">
-                        <true>
-                            <input type="checkbox" class="form-check-input" disabled checked="checked">
-                        </true>
-                        <false>
-                            <input type="checkbox" class="form-check-input" disabled>
-                        </false>
-                    </check>
+                    <div class="text-center">
+                        <check if="{{@member.premium == 1}}">
+                            <true>
+                                <input type="checkbox" class="form-check-input" disabled checked="checked">
+                            </true>
+                            <false>
+                                <input type="checkbox" class="form-check-input" disabled>
+                            </false>
+                        </check>
+                    </div>
                 </td>
                 <td>{{@member.interests}}</td>
             </tr>

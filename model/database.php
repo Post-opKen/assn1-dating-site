@@ -17,8 +17,15 @@ PRIMARY KEY (`member_id`)) ENGINE = MyISAM;
 
 require "/home/edausgre/config.php";
 
+/**
+ * Represents a Database object with methods for adding and retrieving data.
+ */
 class Database
 {
+    /**
+     * Makes a new connection to the database, returns a PDO object.
+     * @return PDO|void
+     */
     function connect()
     {
         try {
@@ -33,6 +40,11 @@ class Database
         }
     }
 
+    /**
+     * Adds the provided member ovject to the database.
+     * @param $member Member The member to be added.
+     * @return bool True if the member was inserted correctly, false otherwise.
+     */
     function insertMember($member)
     {
         global $dbh;
@@ -82,6 +94,10 @@ class Database
         return $success;
     }
 
+    /**
+     * Retrieves all members from the database.
+     * @return array An array of members.
+     */
     function getMembers()
     {
         global $dbh;
@@ -101,6 +117,11 @@ class Database
         return $result;
     }
 
+    /**
+     * Retrieves a single member with the given id.
+     * @param $id int The id of the member to be retrieved.
+     * @return mixed The member with the given id.
+     */
     function getMember($id)
     {
         global $dbh;
